@@ -5,6 +5,7 @@ function home(req, res) {
 }
 
 async function search(req, res) {
+    console.log('search method')
     const searchQuery = req.query['songName']
     const accessToken = req.session.access_token
 
@@ -38,38 +39,43 @@ async function search(req, res) {
 }
 
 async function lyrics(req, res) {
-
     try {
+        const songId = req.params.id
+        const accessToken = req.session.access_token
 
-    const songId = req.params.id
-    const accessToken = req.session.access_token
+        const songDetailsResponse = await fetch(`https://api.genius.com/songs/${songId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            json: true
+        })
+        const songDetails = await songDetailsResponse.json()
 
-    const songDetailsResponse = await fetch(`https://api.genius.com/songs/${songId}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-        },
-        json: true
-    })
-    const songDetails = await songDetailsResponse.json()
-    const songPath = songDetails.response.song.path
-    const songTitle = songDetails.response.song.title
-    const songArtist = songDetails.response.song.primary_artist.name
+        const songPath = songDetails.response.song.path
+        const songTitle = songDetails.response.song.title
+        const songArtist = songDetails.response.song.primary_artist.name
 
-    console.log(songPath);
 
-    const theSongResponse = await fetch(`https://serverless-shit.ikbenmel.vin/api/scrapeLyrics?url=${songPath}`, {
-        method: 'GET',
-        json: true
-    })
-    const theSong = await theSongResponse.json()
+        const theSongResponse = await fetch(`https://serverless-shit.ikbenmel.vin/api/scrapeLyrics?url=${songPath}`, {
+            method: 'GET',
+            json: true
+        })
+        const theSong = await theSongResponse.json()
 
-    const lyrics = theSong.res
+        const lyrics = theSong.res
 
-    return res.render('lyrics', {layout: 'index', title: songTitle, artist: songArtist, lyrics: lyrics, loggedIn: !!accessToken})
+        return res.render('lyrics', {
+            layout: 'index',
+            title: songTitle,
+            artist: songArtist,
+            lyrics: lyrics,
+            loggedIn: !!accessToken
+        })
     } catch (error) {
-        console.log(error);
-        return res.redirect('/')
+        // I have no clue why but somehow this function - and only this one -
+        // executes twice throwing undefined errors around
+        res.redirect('/')
     }
 }
 
