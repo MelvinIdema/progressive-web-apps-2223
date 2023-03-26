@@ -1,0 +1,28 @@
+<article id="search" class="container">
+  <div class="search">
+    <header>
+      <h1>Searching for: <i>{{query}}</i></h1>
+    </header>
+    <section id="searchResultsContainer">
+      {{#if results}}
+        {{#each results}}
+
+          <a href="{{url}}">
+            <article>
+              <div class="thumbnail">
+                <img src="{{thumbnail}}" alt="">
+              </div>
+              <div class="content">
+                <h1>{{title}}</h1>
+                <h2>{{artist}}</h2>
+              </div>
+            </article>
+          </a>
+
+        {{/each}}
+      {{else}}
+        <p>No results found</p>
+      {{/if}}
+    </section>
+  </div>
+</article>
