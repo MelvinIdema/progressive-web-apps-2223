@@ -5,7 +5,6 @@ function home(req, res) {
 }
 
 async function search(req, res) {
-    console.log('search method')
     const searchQuery = req.query['songName']
     const accessToken = req.session.access_token
 
