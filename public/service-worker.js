@@ -1,4 +1,4 @@
-const CACHE_NAME = 'offline-cache-v2'
+const CACHE_NAME = 'offline-cache-v7'
 const OFFLINE_URL = '/offline'
 const CACHED_URLS = [OFFLINE_URL, '/style.css', '/main.js', '/manifest.webmanifest', '/icon-192x192.png', '/icon-256x256.png', '/icon-384x384.png', '/icon-512x512.png']
 
@@ -39,6 +39,7 @@ self.addEventListener("fetch", (e) => {
                             })
                     })
                     .catch(() => {
+                        console.log('[Service Worker] Fetch failed; returning offline page instead.')
                         // If the request fails, return the offline page
                         if (e.request.mode === 'navigate') {
                             return caches.open(CACHE_NAME)

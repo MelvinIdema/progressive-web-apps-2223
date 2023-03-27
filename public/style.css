@@ -46,3 +46,7 @@ body { margin: 0; height: 100vh; }
 #searchResultsContainer a {
   all: unset;
 }
+
+.hidden {
+  display: none;
+}
