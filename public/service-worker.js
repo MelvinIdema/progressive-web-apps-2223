@@ -18,6 +18,7 @@ self.addEventListener("activate", (e) => {
 
 self.addEventListener("fetch", (e) => {
     console.log("[Service Worker] Fetching...")
+
     e.respondWith(
         caches.match(e.request)
             .then(cachedResponse => {
@@ -49,3 +50,4 @@ self.addEventListener("fetch", (e) => {
             })
     )
 })
+

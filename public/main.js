@@ -19,7 +19,6 @@ function updateOfflineMessage() {
     }
 }
 
-
 window.addEventListener('load', updateOfflineMessage);
 window.addEventListener('online', updateOfflineMessage);
 window.addEventListener('offline', updateOfflineMessage);
