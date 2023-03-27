@@ -1,7 +1,7 @@
 {
     "theme_color": "#48c78e",
     "background_color": "#fff",
-    "display": "minimal-ui",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "LyrIQ",
