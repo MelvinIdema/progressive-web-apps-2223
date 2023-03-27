@@ -78,8 +78,15 @@ async function lyrics(req, res) {
     }
 }
 
+async function offline(req, res) {
+    return res.render('offline', {
+        layout: 'offline',
+    })
+}
+
 export {
     home,
     search,
-    lyrics
+    lyrics,
+    offline
 }

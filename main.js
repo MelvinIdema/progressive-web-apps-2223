@@ -12,6 +12,17 @@ import AppRouter from "./routes/App.js"
 import AuthRouter from './routes/Auth.js'
 import UserRouter from "./routes/User.js"
 
+import fs from 'fs'
+import https from 'https'
+
+let key;
+let cert;
+
+if(process.env.NODE_ENV === "development") {
+    key = fs.readFileSync('./ssl/localhost-key.pem')
+    cert = fs.readFileSync('./ssl/localhost.pem')
+}
+
 let client = new Redis(process.env.REDIS_URL)
 
 let redisStore = new RedisStore({
@@ -42,6 +53,14 @@ app.use('/', AppRouter)
 app.use('/auth', AuthRouter)
 app.use('/user', UserRouter)
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
-})
+if(process.env.NODE_ENV === "development") {
+    https.createServer({ key, cert }, app).listen(port, () => {
+        console.log(`Listening on port ${port}`)
+    })
+}
+
+if(process.env.NODE_ENV === "production") {
+    app.listen(port, () => {
+        console.log(`Listening on port ${port}`)
+    })
+}

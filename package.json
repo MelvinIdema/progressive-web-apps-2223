@@ -5,8 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch . main.js",
-    "start": "node main.js"
+    "dev": "NODE_ENV=development nodemon --watch . main.js",
+    "start": "NODE_ENV=production node main.js"
   },
   "author": "",
   "license": "ISC",
