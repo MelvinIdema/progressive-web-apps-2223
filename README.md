@@ -5,7 +5,7 @@
 <p align="center">
   Als muziekliefhebber, wil ik een applicatie dat het sentiment van mijn favoriete muziek kan analyseren, zodat ik de emoties achter het nummer beter kan begrijpen.
   <br>    
-  <strong>App:</strong> <a href="https://lyriq-pwa.ikbenmel.vin"> https://lyriq.ikbenmel.vin </a> <br>
+  <strong>App:</strong> <a href="https://lyriq-pwa.ikbenmel.vin"> https://lyriq-pwa.ikbenmel.vin </a> <br>
   <strong>Proces:</strong> <a href="https://lyriq-pwa.ikbenmel.vin/proces/index.html"> https://lyriq-pwa.ikbenmel.vin/proces/index.html </a>
 </p>
 
