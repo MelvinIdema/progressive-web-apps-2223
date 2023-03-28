@@ -9,6 +9,7 @@ self.addEventListener("install", (e) => {
                 console.log("[Service Worker] Pre-caching offline assets")
                 return cache.addAll(CACHED_URLS)
             })
+            .then(() => self.skipWaiting())
     )
 })
 
