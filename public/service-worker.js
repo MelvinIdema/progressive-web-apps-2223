@@ -15,6 +15,16 @@ self.addEventListener("install", (e) => {
 
 self.addEventListener("activate", (e) => {
     console.log("[Service Worker] Activated successfully")
+    e.waitUntil(
+        caches.keys()
+            .then((keyList) => {
+                return Promise.all(keyList.map((key) => {
+                    if (key !== CACHE_NAME) {
+                        console.log("[Service Worker] Removing old cache", key)
+                        return caches.delete(key)
+                    }
+                }))
+            }))
 })
 
 self.addEventListener("fetch", (e) => {
@@ -33,12 +43,13 @@ self.addEventListener("fetch", (e) => {
                         // don't cache the response
                         if (e.request.method !== 'GET' || e.request.url.indexOf('http') !== 0) return response
 
+                        // Clone the response, so we can asynchronously store it and return it
+                        const clone = response.clone()
+
                         // Cache the response
-                        return caches.open(CACHE_NAME)
-                            .then(cache => {
-                                cache.put(e.request, response.clone())
-                                return response
-                            })
+                        caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone))
+                        // Return the response
+                        return response
                     })
                     .catch(() => {
                         console.log('[Service Worker] Fetch failed; returning offline page instead.')
