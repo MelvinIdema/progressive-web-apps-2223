@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express'
 import {engine} from 'express-handlebars'
 import session from 'express-session'
+import expressStaticGzip from "express-static-gzip"
 
 import Redis from 'ioredis'
 import RedisStore from 'connect-redis'
@@ -32,6 +33,10 @@ let redisStore = new RedisStore({
 
 const app = express()
 const port = process.env.PORT || 3000;
+
+app.use("/", expressStaticGzip("public", {}));
+
+app.use((req, res, next) => { res.setHeader('Cache-Control', 'max-age=' + 365 * 24 * 60 * 60); next(); }):
 
 // Session
 app.use(session({
