@@ -34,7 +34,7 @@ let redisStore = new RedisStore({
 const app = express()
 const port = process.env.PORT || 3000;
 
-app.use("/", expressStaticGzip("public", {}));
+// app.use("/", expressStaticGzip("public", {}));
 
 app.use((req, res, next) => { res.setHeader('Cache-Control', 'max-age=' + 365 * 24 * 60 * 60); next(); });
 
