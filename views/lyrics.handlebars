@@ -1,3 +1,4 @@
+<input type="text" name="songPath" id="songPath" value="{{songPath}}" hidden disabled>
 <div class="container">
   <section class="hero is-small is-primary">
     <div class="hero-body">
@@ -10,7 +11,82 @@
     </div>
   </section>
 
-  <div class="box">
-    {{{lyrics}}}
+  <div class="box" id="lyricsBox">
+    <div class="ssc">
+      <div class="ssc-wrapper">
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+        <div class="ssc-line w-50 mbs"></div>
+        <div class="ssc-line w-30 mbs"></div>
+        <div class="ssc-line w-60 mbs"></div>
+        <div class="ssc-line w-40 mbs"></div>
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+  // Do Api Request using Fetch API and fill the div with ID lyricsBox with the JSON response
+  const lyricsBox = document.getElementById("lyricsBox");
+  const songPath = document.getElementById("songPath").value;
+
+  async function fetchLyrics(songPath) {
+    const theSongResponse = await fetch(`https://serverless-shit.ikbenmel.vin/api/scrapeLyrics?url=${songPath}`, {
+      method: 'GET',
+      json: true
+    })
+    const theSong = await theSongResponse.json()
+    const lyrics = theSong.res
+    lyricsBox.innerHTML = lyrics;
+  }
+
+  try {
+    fetchLyrics(songPath);
+  } catch (err) {
+    lyricsBox.innerHTML = `<p class="has-text-danger">Error: ${err}</p>`;
+  }
+
+
+</script>

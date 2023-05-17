@@ -55,20 +55,11 @@ async function lyrics(req, res) {
         const songTitle = songDetails.response.song.title
         const songArtist = songDetails.response.song.primary_artist.name
 
-
-        const theSongResponse = await fetch(`https://serverless-shit.ikbenmel.vin/api/scrapeLyrics?url=${songPath}`, {
-            method: 'GET',
-            json: true
-        })
-        const theSong = await theSongResponse.json()
-
-        const lyrics = theSong.res
-
         return res.render('lyrics', {
             layout: 'index',
             title: songTitle,
             artist: songArtist,
-            lyrics: lyrics,
+            songPath: songPath,
             loggedIn: !!accessToken
         })
     } catch (error) {
